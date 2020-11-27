@@ -13,7 +13,7 @@ const Pokemon = () => {
       .then((result) => {
         setData(result.data.results);
       });
-  }, []);
+  }, [data]);
 
   return (
     <>
