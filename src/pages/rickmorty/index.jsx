@@ -8,7 +8,9 @@ const RickMorty = () => {
   const [nextUrl, setNextUrl] = useState(
     "https://rickandmortyapi.com/api/character/"
   );
-  console.log(data);
+  const [currentPage, setCurrentPate] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(30);
+
   useEffect(() => {
     const getCharacter = () => {
       if (nextUrl) {
@@ -23,18 +25,27 @@ const RickMorty = () => {
     getCharacter();
   }, [nextUrl]);
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <>
       <Title>Escolha seus personagens favoritos de Rick and Morty!</Title>
 
       <Flex>
-        {data.map((data, index) => (
+        {currentPosts.map((data, index) => (
           <Card title={data.name} bordered={true} style={{ width: 255 }}>
             <img src={data.image} width="200px" />
           </Card>
         ))}
       </Flex>
-      <Pagination defaultCurrent={1} defaultPageSize={10} total={data.length} />
+      <Pagination
+        defaultCurrent={currentPage}
+        defaultPageSize={postsPerPage}
+        total={data.length}
+        onClick={console.log("clicou")}
+      />
     </>
   );
 };

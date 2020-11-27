@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Card } from "antd";
+import { Card, Button, Pagination } from "antd";
 import { Title, Flex } from "../../styled";
 
 const Pokemon = () => {
-  const [Data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
@@ -16,21 +16,29 @@ const Pokemon = () => {
   }, []);
 
   return (
-    <Flex>
-      {Data.map(({ name, url }) => {
-        const brokenUrl = url.split("/");
-        const id = brokenUrl[brokenUrl.length - 2];
-        return (
-          <Card>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
-              alt={name}
-            />
-            <p>{name}</p>
-          </Card>
-        );
-      })}
-    </Flex>
+    <>
+      <Title>Escolha seus Pokémon preferidos!</Title>
+      <Flex>
+        {data.map(({ name, url }) => {
+          const brokenUrl = url.split("/");
+          const id = brokenUrl[brokenUrl.length - 2];
+          return (
+            <Card title={name} bordered={true} style={{ width: 255 }}>
+              <Button onClick={console.log({ name })}>select {name}</Button>
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+                alt={name}
+              />
+            </Card>
+          );
+        })}
+        <Pagination
+          defaultCurrent={1}
+          defaultPageSize={10}
+          total={data.length}
+        />
+      </Flex>
+    </>
   );
 };
 
