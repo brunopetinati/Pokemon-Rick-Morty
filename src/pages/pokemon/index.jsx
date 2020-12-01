@@ -3,8 +3,6 @@ import axios from "axios";
 import { Card, Button } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
 
-//fetch
-
 const Pokemon = () => {
   const [data, setData] = useState([]);
 
@@ -15,8 +13,6 @@ const Pokemon = () => {
         setData(result.data.results);
       });
   }, []);
-
-  //favoritos
 
   const [favorites, setFavorites] = useState(() => {
     const favoriteList = localStorage.getItem("favoriteList");
@@ -36,8 +32,6 @@ const Pokemon = () => {
   }, [favorites]);
 
   console.log(favorites);
-
-  //paginação
 
   const [currentPage, setCurrentPate] = useState(1);
   const [postsPerPage] = useState(30);
@@ -68,8 +62,6 @@ const Pokemon = () => {
   };
 
   const paginate = (pageNumber) => setCurrentPate(pageNumber);
-
-  //fim da paginação
 
   return (
     <>

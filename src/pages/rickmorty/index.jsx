@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/alt-text */
+
 import { useState, useEffect } from "react";
 import { Card } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
 
 const RickMorty = (favorites, setFavorites) => {
-  //fetch
-
   const [data, setData] = useState([]);
   const [nextUrl, setNextUrl] = useState(
     "https://rickandmortyapi.com/api/character/"
@@ -23,8 +24,6 @@ const RickMorty = (favorites, setFavorites) => {
     };
     getCharacter();
   }, [nextUrl]);
-
-  //paginação
 
   const totalPosts = data.length;
   const [currentPage, setCurrentPate] = useState(1);
@@ -53,10 +52,6 @@ const RickMorty = (favorites, setFavorites) => {
       </nav>
     );
   };
-
-  //fim da paginação
-
-  //favoritos
 
   const [favoritesRM, setFavoritesRM] = useState(() => {
     const favoriteRM = localStorage.getItem("favoriteRM");
