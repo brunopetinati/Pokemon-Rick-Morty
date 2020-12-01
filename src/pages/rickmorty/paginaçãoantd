@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { Card } from "antd";
+import { Card, Pagination } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
 
-const RickMorty = (favorites, setFavorites) => {
-  //fetch
-
+const RickMorty = () => {
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [nextUrl, setNextUrl] = useState(
-    "https://rickandmortyapi.com/api/character/"
+    `https://rickandmortyapi.com/api/character/?page=${currentPage}`
   );
+  const [postsPerPage] = useState(30);
 
   useEffect(() => {
     const getCharacter = () => {
@@ -22,17 +22,18 @@ const RickMorty = (favorites, setFavorites) => {
       }
     };
     getCharacter();
-  }, [nextUrl]);
+  }, [currentPage, nextUrl]);
 
-  //paginação
+  const onChange = (number) => {
+    setCurrentPage(number);
+    console.log(number);
+  };
 
-  const totalPosts = data.length;
-  const [currentPage, setCurrentPate] = useState(1);
-  const [postsPerPage] = useState(30);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
-
+  const totalPosts = data.length;
+  /* 
   const Pagination = () => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -52,46 +53,34 @@ const RickMorty = (favorites, setFavorites) => {
         </Footer>
       </nav>
     );
-  };
-
-  //fim da paginação
-
-  //favoritos
-
-  const [favoritesRM, setFavoritesRM] = useState(() => {
-    const favoriteRM = localStorage.getItem("favoriteRM");
-    if (favoriteRM) {
-      return JSON.parse(favoriteRM);
-    }
-    return [];
-  });
-
+  }; */
+  /* 
   const handleData = (name) => {
     console.log(name);
-    setFavoritesRM([...favoritesRM, name]);
-  };
+    setFavorites([...favorites, name]);
+    console.log(favorites);
+  }; */
 
-  useEffect(() => {
-    localStorage.setItem("favoriteRM", JSON.stringify(favoritesRM));
-  }, [favoritesRM]);
+  /*   useEffect(() => {
+    localStorage.setItem("favoriteList", favorites);
+  }, [favorites]); */
 
-  const paginate = (pageNumber) => setCurrentPate(pageNumber);
+  /*   const paginate = (pageNumber) => setCurrentPage(pageNumber); */
   return (
     <>
-      <Title>Escolha seus personagens favoritos!</Title>
+      <Title>Escolha seus personagens favoritos de Rick and Morty!</Title>
       <Flex>
         {currentPosts.map((data, index) => (
-          <Card
-            title={data.name}
-            bordered={true}
-            style={{ width: 255 }}
-            onClick={() => handleData(data.name)}
-          >
-            <img src={data.image} width="200px" />
+          <Card title={data.name} bordered={true} style={{ width: 255 }}>
+            <img
+              src={data.image}
+              width="200px"
+              /* onClick={() => setFavorites(...favorites, data.name)} */
+            />
           </Card>
         ))}
       </Flex>
-      <Pagination />
+      <Pagination defaultCurrent={1} total={50} onChange={onChange} />
     </>
   );
 };

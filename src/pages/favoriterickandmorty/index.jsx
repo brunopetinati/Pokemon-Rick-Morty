@@ -1,17 +1,32 @@
-import { Flex, Title, Welcome } from "../../styled";
-import { Card, Button } from "antd";
+import { Title, Welcome, Reset } from "../../styled";
 
 const FavoriteRickandMorty = () => {
-  const favoritelist = localStorage.getItem("favoriteList");
+  let favoriteRM = JSON.parse(localStorage.getItem("favoriteRM"));
+  console.log(favoriteRM);
 
-  return (
-    <>
-      <Title>
-        Confira a lista de seus personagens preferidos de Rick and Morty!
-      </Title>
-      <Welcome>{favoritelist}</Welcome>
-    </>
-  );
+  if (favoriteRM) {
+    return (
+      <>
+        <Title>
+          Confira a lista de seus personagens preferidos de Rick e Morty!
+        </Title>
+        <Welcome>
+          {favoriteRM.map((name) => (
+            <div>{name}</div>
+          ))}
+        </Welcome>
+        <Reset
+          onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }}
+        >
+          Limpar listas
+        </Reset>
+      </>
+    );
+  }
+  return <Welcome>Sua lista está limpa!</Welcome>;
 };
 
 export default FavoriteRickandMorty;

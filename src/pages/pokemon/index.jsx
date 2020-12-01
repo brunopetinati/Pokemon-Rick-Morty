@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Link, Route } from "react-router-dom";
 import axios from "axios";
-
 import { Card, Button } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
 
@@ -20,17 +18,24 @@ const Pokemon = () => {
 
   //favoritos
 
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    const favoriteList = localStorage.getItem("favoriteList");
+    if (favoriteList) {
+      return JSON.parse(favoriteList);
+    }
+    return [];
+  });
 
   const handleData = (name) => {
     console.log(name);
     setFavorites([...favorites, name]);
-    console.log(favorites);
   };
 
   useEffect(() => {
-    localStorage.setItem("favoriteList", favorites);
+    localStorage.setItem("favoriteList", JSON.stringify(favorites));
   }, [favorites]);
+
+  console.log(favorites);
 
   //paginação
 
@@ -75,7 +80,9 @@ const Pokemon = () => {
           const id = brokenUrl[brokenUrl.length - 2];
           return (
             <Card title={name} bordered={true} style={{ width: 255 }}>
-              <Button onClick={() => handleData(name)}>select {name}</Button>
+              <Button onClick={() => handleData({ name })}>
+                select {name}
+              </Button>
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
                 width="230px"

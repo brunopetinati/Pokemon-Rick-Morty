@@ -4,6 +4,7 @@ export const Welcome = styled.div`
   color: white;
   height: 776px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -74,5 +75,27 @@ export const List = styled.div`
     background-color: white;
     color: black;
     transition: 0.8s;
+  }
+`;
+
+export const Reset = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: Black;
+  color: White;
+  height: 300px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  font-variant: small-caps;
+  padding-top: 1px;
+  :hover {
+    color: purple;
+    transition: 0.8s;
+    cursor: pointer;
   }
 `;
