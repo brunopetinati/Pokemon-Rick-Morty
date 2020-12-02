@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
+import { motion } from "framer-motion";
 
 const Pokemon = () => {
   const [data, setData] = useState([]);
@@ -66,21 +67,29 @@ const Pokemon = () => {
   return (
     <>
       <Title>Escolha seus Pokémon preferidos!</Title>
+
       <Flex>
         {currentPosts.map(({ name, url }) => {
           const brokenUrl = url.split("/");
           const id = brokenUrl[brokenUrl.length - 2];
           return (
-            <Card title={name} bordered={true} style={{ width: 255 }}>
-              <Button onClick={() => handleData({ name })}>
-                select {name}
-              </Button>
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
-                width="230px"
-                alt={name}
-              />
-            </Card>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2 }}
+            >
+              <Card title={name} bordered={true} style={{ width: 255 }}>
+                <Button onClick={() => handleData({ name })}>
+                  select {name}
+                </Button>
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+                  width="230px"
+                  alt={name}
+                />
+              </Card>
+            </motion.div>
           );
         })}
       </Flex>

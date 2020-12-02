@@ -6,6 +6,7 @@ import RickMorty from "./pages/rickmorty/";
 import Pokemon from "./pages/pokemon/";
 import FavoritePokemon from "./pages/favoritepokemon";
 import FavoriteRickandMorty from "./pages/favoriterickandmorty";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   return (
@@ -16,21 +17,23 @@ function App() {
         <Link to="/favoritepokemon">Pokémon favoritos</Link>
         <Link to="/favoriterickmorty">Favoritos Rick and Morty</Link>
       </Links>
-      <Switch>
-        <Route exact path="/rickmorty">
-          <RickMorty />
-        </Route>
-        <Route exact path="/pokemon">
-          <Pokemon />
-        </Route>
-        <Route exact path="/favoritepokemon">
-          <FavoritePokemon />
-        </Route>
-        <Route exact path="/favoriterickmorty">
-          <FavoriteRickandMorty />
-        </Route>
-        <Welcome>Seja Bem Vindo!</Welcome>
-      </Switch>
+      <AnimatePresence>
+        <Switch>
+          <Route exact path="/rickmorty">
+            <RickMorty />
+          </Route>
+          <Route exact path="/pokemon">
+            <Pokemon />
+          </Route>
+          <Route exact path="/favoritepokemon">
+            <FavoritePokemon />
+          </Route>
+          <Route exact path="/favoriterickmorty">
+            <FavoriteRickandMorty />
+          </Route>
+          <Welcome>Seja Bem Vindo!</Welcome>
+        </Switch>
+      </AnimatePresence>
     </>
   );
 }

@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "antd";
 import { Title, Flex, List, Footer } from "../../styled";
+import { motion } from "framer-motion";
 
 const RickMorty = (favorites, setFavorites) => {
   const [data, setData] = useState([]);
@@ -74,18 +75,27 @@ const RickMorty = (favorites, setFavorites) => {
   return (
     <>
       <Title>Escolha seus personagens favoritos!</Title>
+
       <Flex>
         {currentPosts.map((data, index) => (
-          <Card
-            title={data.name}
-            bordered={true}
-            style={{ width: 255 }}
-            onClick={() => handleData(data.name)}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2 }}
           >
-            <img src={data.image} width="200px" />
-          </Card>
+            <Card
+              title={data.name}
+              bordered={true}
+              style={{ width: 255 }}
+              onClick={() => handleData(data.name)}
+            >
+              <img src={data.image} width="200px" />
+            </Card>
+          </motion.div>
         ))}
       </Flex>
+
       <Pagination />
     </>
   );
